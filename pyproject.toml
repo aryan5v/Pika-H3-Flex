@@ -20,3 +20,4 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "pika_h3.core" = ["*.yaml"]
+"pika_h3.kernels" = ["csrc/*.cpp", "csrc/*.cu"]

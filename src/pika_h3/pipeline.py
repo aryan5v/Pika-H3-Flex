@@ -106,6 +106,10 @@ def generate(args):
     apply_lora(model, rank=manifest["rank"], alpha=manifest["alpha"], target_modules=manifest.get("target_modules"), master_dtype=torch.bfloat16)
     load_lora_weights(model, str(adapter))
     model.requires_grad_(False).eval()
+    fused_dit_kernels = None
+    if args.fused_dit_kernels:
+        from .kernels import install_fused_dit_kernels
+        fused_dit_kernels = install_fused_dit_kernels(model)
     if args.cpu_offload:
         model.enable_group_offload(onload_device=torch.device("cuda"),
             offload_device=torch.device("cpu"), offload_type="block_level",
@@ -162,6 +166,7 @@ def generate(args):
         "adapter_revision": args.revision, "base": manifest["base"],
         "local_base_override": args.base_path is not None,
         "transformer_cpu_offload": args.cpu_offload,
+        "fused_dit_kernels": fused_dit_kernels,
         "local_conditioner_override": args.text_encoder_path is not None,
         "bucket_sha256": file_sha256(bucket_file), "noise_version": "pika-flex-noise-v1",
         "numerics_policy":policy, "sampling":manifest["sampling"],

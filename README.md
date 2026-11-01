@@ -175,6 +175,8 @@ pika-h3-pro --model-repo "$MODEL_REPO" --revision "$MODEL_REVISION" \
   --duration 15 --seed 42 --cpu-offload --output outputs/long-768p.mp4
 ```
 
+Add `--fused-dit-kernels` to run the transformer's query/key RMSNorm + rotary embedding and its RMSNorm + AdaLN modulation as fused GPU kernels. They reproduce the default BF16 rounding of these steps, but the output is not guaranteed bit-identical with the default path. The CUDA kernels compile on first use (requires `nvcc` and `ninja`; cached in the PyTorch extensions directory); without them, equivalent Triton kernels are used. On one GB200, 768p/5s sampling took 17.0 s instead of 19.7 s; other GPUs have not been measured.
+
 Requested durations are 5–15 integer seconds. The model uses a 17n+5 frame grid at 24fps, so actual duration differs slightly from the request. The [verification table](docs/hardware.md) records tested cases; it does not qualify every aspect/duration/reference combination. Raw video and audio references use `--ref video:clip.mp4` and `--ref audio:sound.wav`. Video soundtracks are included automatically. Limits: 9 images, 3 videos, 3 audio references, 12 references total. Each video/audio source must be 2–15 seconds; video durations and standalone audio durations separately sum to at most 15 seconds. Input order is preserved. Mixed image/video/audio input has passed a 480p/5s H100 test; maximum reference counts remain unqualified on GPU.
 
 ## Reproducibility
