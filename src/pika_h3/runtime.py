@@ -8,6 +8,7 @@ from pathlib import Path
 EXPECTED = {
     "models/transformers/transformer_minimax_h3.py": "19e69741b2e03bf8b091603e815b02e963253239ee3085bd8ed2b9f6be044388",
     "schedulers/scheduling_minimax_h3.py": "c163bcbeeb4f05aa3eaf7708ebc551717b9d25d02a6ac9688228d7d0878d74ea",
+    "models/autoencoders/autoencoder_kl_minimax_h3.py": "89e9448c4423215765b5217a3999c0b54ff28c60836608fca4455add6856cac9",
 }
 
 
