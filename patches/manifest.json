@@ -37,6 +37,15 @@
           "remove_header": ""
         }
       ]
+    },
+    {
+      "file": "0003-h3-vae-fast-fp32-decode.patch",
+      "sha256": "08e61b8cb8925d0fc4f97d6ab757d56efeca688451ff42d484af9c91b4029427",
+      "target": "models/autoencoders/autoencoder_kl_minimax_h3.py",
+      "before_sha256": "72cf83c0b8c055b67d7d26abd62769edea752c86adb4a94254a3ed7266feb5d2",
+      "after_sha256": "89e9448c4423215765b5217a3999c0b54ff28c60836608fca4455add6856cac9",
+      "modification_notice_header": "# Modified for Pika H3 Flex in 2026.\n# Model Derivative of MiniMax H3, distributed under the MiniMax H3 Community License Agreement.\n# Code remains licensed under Apache-2.0; the model terms above apply to the adapters.\n# Changes: faster FP32 video decode (emulated FP32 GEMMs, batched tiles, optional compiled tile decoder).\n# Original upstream copyright and Apache-2.0 license notices are retained below.\n\n",
+      "notice_upgrades": []
     }
   ]
 }
