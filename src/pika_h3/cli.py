@@ -19,6 +19,7 @@ def parser():
     p.add_argument("--duration", type=int, choices=range(5,16), default=5)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--cpu-offload", action="store_true", help="Offload transformer blocks to CPU between forwards to reduce VRAM; slower and requires host RAM")
+    p.add_argument("--fused-dit-kernels", action="store_true", help="Use fused GPU kernels for the DiT QK-norm/RoPE and RMSNorm/AdaLN steps; faster sampling, output not bit-identical to the default path")
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--model-repo", default="Pika-Labs/Pika-H3-Flex")
     p.add_argument("--revision", required=True, help="Immutable HF adapter repository commit")
